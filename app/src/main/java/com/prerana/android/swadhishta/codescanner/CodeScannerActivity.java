@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.budiyev.android.swadhishta.codescanner;
+package com.prerana.android.swadhishta.codescanner;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -32,8 +32,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.swadhishta.R;
-import com.budiyev.android.swadhishta.base.BaseActivity;
+import com.prerana.android.swadhishta.R;
+import com.prerana.android.swadhishta.base.BaseActivity;
 
 public class CodeScannerActivity extends BaseActivity {
     private static final int RC_PERMISSION = 10;
