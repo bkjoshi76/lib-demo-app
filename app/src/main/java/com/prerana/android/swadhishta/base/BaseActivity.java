@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.budiyev.android.libdemoapp.base;
+package com.budiyev.android.swadhishta.base;
 
 import android.os.Bundle;
 import android.view.MenuItem;

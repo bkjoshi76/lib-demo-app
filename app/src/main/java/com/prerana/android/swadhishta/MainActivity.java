@@ -21,31 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.budiyev.android.libdemoapp.imageloader.component;
+package com.prerana.android.swadhishta;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.content.Intent;
+import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatImageView;
+import com.prerana.android.swadhishta.base.BaseActivity;
+import com.prerana.android.swadhishta.codescanner.CodeScannerActivity;
 
-public class SquareImageView extends AppCompatImageView {
-    public SquareImageView(Context context) {
-        super(context);
-    }
-
-    public SquareImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
+public class MainActivity extends BaseActivity {
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int measuredWidth = getMeasuredWidth();
-        //noinspection SuspiciousNameCombination
-        setMeasuredDimension(measuredWidth, measuredWidth);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViewById(R.id.food_product_scanner)
+                .setOnClickListener(v -> startActivity(new Intent(this, CodeScannerActivity.class)));
     }
 }

@@ -7,20 +7,9 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/image_loader"
+        android:id="@+id/food_product_scanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/image_loader"/>
+        android:text="@string/food_product_scanner" />
 
-    <Button
-        android:id="@+id/code_scanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/code_scanner"/>
-
-    <Button
-        android:id="@+id/circular_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/circular_progress_bar"/>
 </LinearLayout>

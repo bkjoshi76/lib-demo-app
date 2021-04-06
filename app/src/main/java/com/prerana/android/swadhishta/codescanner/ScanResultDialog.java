@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.budiyev.android.libdemoapp.codescanner;
+package com.budiyev.android.swadhishta.codescanner;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
-import com.budiyev.android.libdemoapp.R;
+import com.budiyev.android.swadhishta.R;
 import com.google.zxing.Result;
 
 public class ScanResultDialog extends AppCompatDialog {
