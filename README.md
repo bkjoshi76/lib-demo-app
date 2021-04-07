@@ -1,8 +1,4 @@
-# Lib Demo App
+# Swadhishta App
 
-Sample app for my android libraries.
+“Swadhishta” App – empowers end users to make better food choices by providing simple health information on a scanned product and suggesting healthier alternatives
 
-### Contents:
-* [Image Loader](https://github.com/yuriy-budiyev/image-loader)
-* [Code Scanner](https://github.com/yuriy-budiyev/code-scanner)
-* [Circular Progress Bar](https://github.com/yuriy-budiyev/circular-progress-bar)
