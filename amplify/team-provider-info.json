@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "swadhistha0184590a": {}
+      },
+      "function": {
+        "S3Triggercf11c62a": {
+          "deploymentBucketName": "amplify-swadhistha-dev-73310-deployment",
+          "s3Key": "amplify-builds/S3Triggercf11c62a-5a32324d6a594d417767-build.zip"
+        }
       }
     }
   }

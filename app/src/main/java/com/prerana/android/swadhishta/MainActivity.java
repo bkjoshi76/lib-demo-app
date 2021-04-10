@@ -35,14 +35,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Todo;
+import com.amplifyframework.storage.options.StorageDownloadFileOptions;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.prerana.android.swadhishta.codescanner.CodeScannerActivity;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,26 +100,22 @@ public class MainActivity extends AppCompatActivity {
             // Add these lines to add the AWSApiPlugin plugins
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.configure(getApplicationContext());
+            uploadFile();
+            downloadFile();
             Log.i("MyAmplifyApp", "Initialized Amplify");
         }
         catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-        // add the code below to fetch
-        // data/run queries to
-        // retrieve the stored data
+        createTodo();
 
-        Amplify.API.query(ModelQuery.list(Todo.class), response -> {
-                    for (Todo todo : response.getData()) {
-                        ls.add(todo.getName());
-                        Log.i("MyAmplifyApp", todo.getName());
-                    }
-                },
-                error -> Log.e("MyAmplifyApp", "Query failure", error));
 
+
+        dataStore();
 
 
         handler = new Handler();
@@ -130,6 +132,67 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(r, 1000);
+    }
+
+    private void uploadFile() {
+        File exampleFile = new File(getApplicationContext().getFilesDir(), "ExampleKey");
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(exampleFile));
+            writer.append("Example file contents");
+            writer.close();
+        } catch (Exception exception) {
+            Log.e("MyAmplifyApp", "Upload failed", exception);
+        }
+
+        Amplify.Storage.uploadFile(
+                "ExampleKey",
+                exampleFile,
+                result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()),
+                storageFailure -> Log.e("MyAmplifyApp", "Upload failed", storageFailure)
+        );
+    }
+
+    private void downloadFile() {
+        Amplify.Storage.downloadFile(
+                "ExampleKey",
+                new File(getApplicationContext().getFilesDir() + "/download.txt"),
+                StorageDownloadFileOptions.defaultInstance(),
+                progress -> Log.i("MyAmplifyApp", "Fraction completed: " + progress.getFractionCompleted()),
+                result -> Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName()),
+                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+        );
+    }
+
+    private void dataStore()
+    {
+
+    }
+
+    private void createTodo()
+    {
+        Todo todo = Todo.builder()
+                .name("My first todo")
+                .description("todo description")
+                .build();
+
+        Amplify.API.mutate(
+                ModelMutation.create(todo),
+                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
+
+        // add the code below to fetch
+        // data/run queries to
+        // retrieve the stored data
+
+        Amplify.API.query(ModelQuery.list(Todo.class), response -> {
+                    for (Todo data : response.getData()) {
+                        ls.add(data.getName());
+                        Log.i("MyAmplifyApp", data.getName());
+                    }
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error));
     }
 }
 

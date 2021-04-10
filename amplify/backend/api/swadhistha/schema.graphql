@@ -5,8 +5,30 @@ enum Priority {
 }
 
 type Todo @model {
-  id: ID
-  name: String
+  id: ID!
+  name: String!
   priority: Priority
   description: String
+  photo: S3Object
+}
+
+type S3Object {
+  bucket: String!
+  key: String!
+  region: String!
+  localUri: String
+  mimeType: String
+}
+
+type Post @model {
+  id: ID!
+  title: String!
+  status: PostStatus!
+  rating: Int
+  content: String
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
 }

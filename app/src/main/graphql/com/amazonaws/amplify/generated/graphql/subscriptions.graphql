@@ -5,6 +5,9 @@ subscription OnCreateTodo {
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
     createdAt
     updatedAt
   }
@@ -15,6 +18,9 @@ subscription OnUpdateTodo {
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
     createdAt
     updatedAt
   }
@@ -25,6 +31,42 @@ subscription OnDeleteTodo {
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreatePost {
+  onCreatePost {
+    id
+    title
+    status
+    rating
+    content
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePost {
+  onUpdatePost {
+    id
+    title
+    status
+    rating
+    content
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePost {
+  onDeletePost {
+    id
+    title
+    status
+    rating
+    content
     createdAt
     updatedAt
   }

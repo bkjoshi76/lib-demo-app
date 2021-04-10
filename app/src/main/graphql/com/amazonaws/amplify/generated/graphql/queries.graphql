@@ -5,6 +5,9 @@ query GetTodo($id: ID!) {
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
     createdAt
     updatedAt
   }
@@ -20,6 +23,38 @@ query ListTodos(
       name
       priority
       description
+      photo {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetPost($id: ID!) {
+  getPost(id: $id) {
+    id
+    title
+    status
+    rating
+    content
+    createdAt
+    updatedAt
+  }
+}
+query ListPosts(
+  $filter: ModelPostFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      title
+      status
+      rating
+      content
       createdAt
       updatedAt
     }

@@ -8,6 +8,9 @@ mutation CreateTodo(
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
     createdAt
     updatedAt
   }
@@ -21,6 +24,9 @@ mutation UpdateTodo(
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
     createdAt
     updatedAt
   }
@@ -34,6 +40,51 @@ mutation DeleteTodo(
     name
     priority
     description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreatePost(
+  $input: CreatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  createPost(input: $input, condition: $condition) {
+    id
+    title
+    status
+    rating
+    content
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePost(
+  $input: UpdatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  updatePost(input: $input, condition: $condition) {
+    id
+    title
+    status
+    rating
+    content
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePost(
+  $input: DeletePostInput!
+  $condition: ModelPostConditionInput
+) {
+  deletePost(input: $input, condition: $condition) {
+    id
+    title
+    status
+    rating
+    content
     createdAt
     updatedAt
   }
