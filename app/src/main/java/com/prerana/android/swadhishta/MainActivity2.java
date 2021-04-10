@@ -1,29 +1,17 @@
-package com.example.shreyaawsapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.prerana.android.swadhishta;
 
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amplifyframework.api.graphql.model.ModelMutation;
-import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Todo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import android.os.Bundle;
 
 public class MainActivity2 extends AppCompatActivity {
     public EditText name,desc;
@@ -36,15 +24,7 @@ public class MainActivity2 extends AppCompatActivity {
         name = findViewById(R.id.edname);
         desc = findViewById(R.id.eddes);
         btn = findViewById(R.id.button2);
-        try {
-            // Add these lines to add the AWSApiPlugin plugins
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.configure(getApplicationContext());
 
-            Log.i("MyAmplifyApp", "Initialized Amplify");
-        } catch (AmplifyException error) {
-            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
-        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +48,6 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-      startActivity (new Intent(MainActivity2.this,MainActivity.class));
+      startActivity (new Intent(com.prerana.android.swadhishta.MainActivity2.this,MainActivity.class));
     }
 }
