@@ -22,6 +22,17 @@
         tools:text="Scan result"/>
 
     <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:maxLines="50"
+        android:textColor="#ff333333"
+        android:textSize="15sp"
+        tools:text="description"/>
+
+    <TextView
         android:id="@+id/format"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,10 +52,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/copy"
+            android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/copy"
+            android:text="@string/search"
             tools:ignore="ButtonStyle"/>
 
         <Button

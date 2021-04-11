@@ -31,8 +31,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
@@ -41,9 +39,11 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Todo;
+import com.amplifyframework.datastore.generated.model.ScanResult;
 import com.amplifyframework.storage.options.StorageDownloadFileOptions;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.prerana.android.swadhishta.base.BaseActivity;
 import com.prerana.android.swadhishta.codescanner.CodeScannerActivity;
 
 import java.io.BufferedWriter;
@@ -52,7 +52,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     // declaration
     public FloatingActionButton btn;
     public ListView lv;
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ls = new ArrayList<String>();
+        ls.add("Please scan food product");
 
         // add the code below to initialize Amplpify
         try {
@@ -111,12 +112,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-        createTodo();
+        //createTodo();
 
-
-
-        dataStore();
-
+        showScanResults();
 
         handler = new Handler();
         final Runnable r = new Runnable() {
@@ -132,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(r, 1000);
+
+
     }
 
     private void uploadFile() {
@@ -164,9 +164,30 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void dataStore()
-    {
+    private void showScanResults()
 
+    {
+        ScanInfo scanInstance = ScanInfo.getInstance();
+        Log.i("MyAmplifyApp", scanInstance.getScanId());
+
+        if (!scanInstance.getScanId().isEmpty())
+        {
+            Amplify.API.query(ModelQuery.list(ScanResult.class), response -> {
+                        for (ScanResult data : response.getData()) {
+                            if (data.getName().contentEquals(scanInstance.getScanId()))
+                            {
+                                ls.add(data.getName());
+                                Log.i("MyAmplifyApp", data.getName());
+                            }
+                        }
+                    },
+                    error -> Log.e("MyAmplifyApp", "Query failure", error));
+        }
+        else
+        {
+            Log.i("MyAmplifyApp", "ScanId is empty");
+            ls.add("Please scan food product : ScanId is empty");
+        }
     }
 
     private void createTodo()
@@ -188,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
         Amplify.API.query(ModelQuery.list(Todo.class), response -> {
                     for (Todo data : response.getData()) {
-                        ls.add(data.getName());
+                        //ls.add(data.getName());
                         Log.i("MyAmplifyApp", data.getName());
                     }
                 },

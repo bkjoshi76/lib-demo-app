@@ -32,6 +32,39 @@ query ListTodos(
     nextToken
   }
 }
+query GetScanResult($id: ID!) {
+  getScanResult(id: $id) {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListScanResults(
+  $filter: ModelScanResultFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listScanResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      format
+      description
+      photo {
+        ...S3Object
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetPost($id: ID!) {
   getPost(id: $id) {
     id

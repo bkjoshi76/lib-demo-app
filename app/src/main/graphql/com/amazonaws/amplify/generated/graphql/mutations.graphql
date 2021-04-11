@@ -47,6 +47,54 @@ mutation DeleteTodo(
     updatedAt
   }
 }
+mutation CreateScanResult(
+  $input: CreateScanResultInput!
+  $condition: ModelScanResultConditionInput
+) {
+  createScanResult(input: $input, condition: $condition) {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateScanResult(
+  $input: UpdateScanResultInput!
+  $condition: ModelScanResultConditionInput
+) {
+  updateScanResult(input: $input, condition: $condition) {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteScanResult(
+  $input: DeleteScanResultInput!
+  $condition: ModelScanResultConditionInput
+) {
+  deleteScanResult(input: $input, condition: $condition) {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
 mutation CreatePost(
   $input: CreatePostInput!
   $condition: ModelPostConditionInput

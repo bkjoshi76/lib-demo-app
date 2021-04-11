@@ -38,6 +38,45 @@ subscription OnDeleteTodo {
     updatedAt
   }
 }
+subscription OnCreateScanResult {
+  onCreateScanResult {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateScanResult {
+  onUpdateScanResult {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteScanResult {
+  onDeleteScanResult {
+    id
+    name
+    format
+    description
+    photo {
+      ...S3Object
+    }
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreatePost {
   onCreatePost {
     id

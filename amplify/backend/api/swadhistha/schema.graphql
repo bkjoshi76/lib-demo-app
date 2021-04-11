@@ -12,6 +12,14 @@ type Todo @model {
   photo: S3Object
 }
 
+type ScanResult @model {
+  id: ID!
+  name: String!
+  format: String   
+  description: String
+  photo: S3Object
+}
+
 type S3Object {
   bucket: String!
   key: String!
@@ -32,3 +40,4 @@ enum PostStatus {
   DRAFT
   PUBLISHED
 }
+

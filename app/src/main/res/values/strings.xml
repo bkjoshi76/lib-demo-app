@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Swadhishta App</string>
     <string name="food_product_scanner">Food Product Scanner</string>
-    <string name="scan_result">Scan result</string>
+    <string name="scan_result">Scan result : %s</string>
     <string name="scanner_error">Scanner error: %s</string>
     <string name="close">Close</string>
-    <string name="copy">Copy</string>
-    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="search">Process</string>
+    <string name="search_in_progress">Processing</string>
     <string name="indeterminate">Indeterminate</string>
 </resources>
