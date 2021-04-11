@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.amplifyframework.AmplifyException;
@@ -38,8 +39,8 @@ import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.amplifyframework.datastore.generated.model.Todo;
 import com.amplifyframework.datastore.generated.model.ScanResult;
+import com.amplifyframework.datastore.generated.model.Todo;
 import com.amplifyframework.storage.options.StorageDownloadFileOptions;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -112,6 +113,7 @@ public class MainActivity extends BaseActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
+        displayImage("Yellow");
         //createTodo();
 
         showScanResults();
@@ -214,6 +216,19 @@ public class MainActivity extends BaseActivity {
                     }
                 },
                 error -> Log.e("MyAmplifyApp", "Query failure", error));
+    }
+
+    private void displayImage(String imageType)
+    {
+        ImageView simpleImageView = (ImageView) findViewById(R.id.simpleImageView);//get the id of first image view
+        if (imageType.equals("Red"))
+            simpleImageView.setImageResource(R.drawable.traffic_light_red);//set the source in java class
+        else if (imageType.equals("Green"))
+            simpleImageView.setImageResource(R.drawable.traffic_light_green);//set the source in java class
+        else if (imageType.equals("Yellow"))
+            simpleImageView.setImageResource(R.drawable.traffic_light_yellow);//set the source in java class
+        else
+            simpleImageView.setImageResource(android.R.color.transparent);
     }
 }
 
