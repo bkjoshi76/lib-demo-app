@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
@@ -56,7 +56,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     // declaration
     public FloatingActionButton btn;
-    public ListView lv;
+    public TextView textView;
     public String[] st;
     int i = 0;
     Handler handler;
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
         btn = findViewById(R.id.fab);
         st = new String[100];
 
-        lv = findViewById(R.id.lt);
+
 
         // set listener to the floating button which takes
         // you to the next activity where you add and sore
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         ls = new ArrayList<String>();
-        ls.add("Please scan food product");
+        ls.add("Please scan the food product");
 
         // add the code below to initialize Amplpify
         try {
@@ -113,27 +113,10 @@ public class MainActivity extends BaseActivity {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
-        displayImage("Yellow");
+        displayImage("none");
         //createTodo();
 
         showScanResults();
-
-        handler = new Handler();
-        final Runnable r = new Runnable() {
-            public void run()
-            {
-                handler.postDelayed(this, 2000);
-                arrayAdapter = new ArrayAdapter<String>(
-                        getApplicationContext(),
-                        android.R.layout.simple_list_item_1,
-                        ls);
-                lv.setAdapter(arrayAdapter);
-                arrayAdapter.notifyDataSetChanged();
-            }
-        };
-        handler.postDelayed(r, 1000);
-
-
     }
 
     private void uploadFile() {
@@ -172,6 +155,8 @@ public class MainActivity extends BaseActivity {
         ScanInfo scanInstance = ScanInfo.getInstance();
         Log.i("MyAmplifyApp", scanInstance.getScanId());
 
+        textView = findViewById(R.id.food_description);
+
         if (!scanInstance.getScanId().isEmpty())
         {
             Amplify.API.query(ModelQuery.list(ScanResult.class), response -> {
@@ -179,6 +164,7 @@ public class MainActivity extends BaseActivity {
                             if (data.getName().contentEquals(scanInstance.getScanId()))
                             {
                                 ls.add(data.getName());
+                                textView.setText(data.getName());
                                 Log.i("MyAmplifyApp", data.getName());
                             }
                         }
@@ -188,7 +174,8 @@ public class MainActivity extends BaseActivity {
         else
         {
             Log.i("MyAmplifyApp", "ScanId is empty");
-            ls.add("Please scan food product : ScanId is empty");
+            ls.add("Please scan food product");
+            textView.setText("         Please scan the  food product");
         }
     }
 
@@ -220,6 +207,9 @@ public class MainActivity extends BaseActivity {
 
     private void displayImage(String imageType)
     {
+        ImageView backgroundView  = (ImageView) findViewById(R.id.swadhishta);
+        backgroundView.setImageResource(R.drawable.swad);
+
         ImageView simpleImageView = (ImageView) findViewById(R.id.simpleImageView);//get the id of first image view
         if (imageType.equals("Red"))
             simpleImageView.setImageResource(R.drawable.traffic_light_red);//set the source in java class
