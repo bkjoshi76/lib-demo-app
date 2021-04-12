@@ -107,10 +107,10 @@ public class MainActivity extends BaseActivity {
             Amplify.configure(getApplicationContext());
             uploadFile();
             downloadFile();
-            Log.i("MyAmplifyApp", "Initialized Amplify");
+            Log.i("SwadhishtaApp", "Initialized Amplify");
         }
         catch (AmplifyException error) {
-            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+            Log.e("SwadhishtaApp", "Could not initialize Amplify", error);
         }
 
         displayImage("none");
@@ -127,14 +127,14 @@ public class MainActivity extends BaseActivity {
             writer.append("Example file contents");
             writer.close();
         } catch (Exception exception) {
-            Log.e("MyAmplifyApp", "Upload failed", exception);
+            Log.e("SwadhishtaApp", "Upload failed", exception);
         }
 
         Amplify.Storage.uploadFile(
                 "ExampleKey",
                 exampleFile,
-                result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()),
-                storageFailure -> Log.e("MyAmplifyApp", "Upload failed", storageFailure)
+                result -> Log.i("SwadhishtaApp", "Successfully uploaded: " + result.getKey()),
+                storageFailure -> Log.e("SwadhishtaApp", "Upload failed", storageFailure)
         );
     }
 
@@ -143,9 +143,9 @@ public class MainActivity extends BaseActivity {
                 "ExampleKey",
                 new File(getApplicationContext().getFilesDir() + "/download.txt"),
                 StorageDownloadFileOptions.defaultInstance(),
-                progress -> Log.i("MyAmplifyApp", "Fraction completed: " + progress.getFractionCompleted()),
-                result -> Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getName()),
-                error -> Log.e("MyAmplifyApp",  "Download Failure", error)
+                progress -> Log.i("SwadhishtaApp", "Fraction completed: " + progress.getFractionCompleted()),
+                result -> Log.i("SwadhishtaApp", "Successfully downloaded: " + result.getFile().getName()),
+                error -> Log.e("SwadhishtaApp",  "Download Failure", error)
         );
     }
 
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity {
 
     {
         ScanInfo scanInstance = ScanInfo.getInstance();
-        Log.i("MyAmplifyApp", scanInstance.getScanId());
+        Log.i("SwadhishtaApp", scanInstance.getScanId());
 
         textView = findViewById(R.id.food_description);
 
@@ -165,15 +165,15 @@ public class MainActivity extends BaseActivity {
                             {
                                 ls.add(data.getName());
                                 textView.setText(data.getName());
-                                Log.i("MyAmplifyApp", data.getName());
+                                Log.i("SwadhishtaApp", data.getName());
                             }
                         }
                     },
-                    error -> Log.e("MyAmplifyApp", "Query failure", error));
+                    error -> Log.e("SwadhishtaApp", "Query failure", error));
         }
         else
         {
-            Log.i("MyAmplifyApp", "ScanId is empty");
+            Log.i("SwadhishtaApp", "ScanId is empty");
             ls.add("Please scan food product");
             textView.setText("         Please scan the  food product");
         }
@@ -188,8 +188,8 @@ public class MainActivity extends BaseActivity {
 
         Amplify.API.mutate(
                 ModelMutation.create(todo),
-                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                response -> Log.i("SwadhishtaApp", "Added Todo with id: " + response.getData().getId()),
+                error -> Log.e("SwadhishtaApp", "Create failed", error)
         );
 
         // add the code below to fetch
@@ -199,10 +199,10 @@ public class MainActivity extends BaseActivity {
         Amplify.API.query(ModelQuery.list(Todo.class), response -> {
                     for (Todo data : response.getData()) {
                         //ls.add(data.getName());
-                        Log.i("MyAmplifyApp", data.getName());
+                        Log.i("SwadhishtaApp", data.getName());
                     }
                 },
-                error -> Log.e("MyAmplifyApp", "Query failure", error));
+                error -> Log.e("SwadhishtaApp", "Query failure", error));
     }
 
     private void displayImage(String imageType)

@@ -35,8 +35,8 @@ public class MainActivity2 extends BaseActivity {
                         .build();
                 Amplify.API.mutate(
                         ModelMutation.create(todo),
-                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                        response -> Log.i("SwadhishtaApp", "Added Todo with id: " + response.getData().getId()),
+                        error -> Log.e("SwadhishtaApp", "Create failed", error)
                 );
             }
         });
