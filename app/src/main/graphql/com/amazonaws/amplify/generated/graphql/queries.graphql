@@ -94,3 +94,50 @@ query ListPosts(
     nextToken
   }
 }
+query GetProduct($id: ID!) {
+  getProduct(id: $id) {
+    id
+    name
+    description
+    servingSize
+    servingPerPacket
+    nutritionInfo {
+      energy
+      protein
+      fatTotal
+      saturated
+      carbohydrate
+      sugar
+      sodium
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      servingSize
+      servingPerPacket
+      nutritionInfo {
+        energy
+        protein
+        fatTotal
+        saturated
+        carbohydrate
+        sugar
+        sodium
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

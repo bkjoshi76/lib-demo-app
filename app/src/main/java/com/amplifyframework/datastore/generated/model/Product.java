@@ -15,20 +15,22 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the ScanResult type in your schema. */
+/** This is an auto generated class representing the Product type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "ScanResults")
-public final class ScanResult implements Model {
-  public static final QueryField ID = field("ScanResult", "id");
-  public static final QueryField NAME = field("ScanResult", "name");
-  public static final QueryField FORMAT = field("ScanResult", "format");
-  public static final QueryField DESCRIPTION = field("ScanResult", "description");
-  public static final QueryField PHOTO = field("ScanResult", "photo");
+@ModelConfig(pluralName = "Products")
+public final class Product implements Model {
+  public static final QueryField ID = field("Product", "id");
+  public static final QueryField NAME = field("Product", "name");
+  public static final QueryField DESCRIPTION = field("Product", "description");
+  public static final QueryField SERVING_SIZE = field("Product", "servingSize");
+  public static final QueryField SERVING_PER_PACKET = field("Product", "servingPerPacket");
+  public static final QueryField NUTRITION_INFO = field("Product", "nutritionInfo");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
-  private final @ModelField(targetType="String") String format;
   private final @ModelField(targetType="String") String description;
-  private final @ModelField(targetType="S3Object") S3Object photo;
+  private final @ModelField(targetType="Int") Integer servingSize;
+  private final @ModelField(targetType="Int") Integer servingPerPacket;
+  private final @ModelField(targetType="Nutrition") Nutrition nutritionInfo;
   public String getId() {
       return id;
   }
@@ -37,24 +39,29 @@ public final class ScanResult implements Model {
       return name;
   }
   
-  public String getFormat() {
-      return format;
-  }
-  
   public String getDescription() {
       return description;
   }
   
-  public S3Object getPhoto() {
-      return photo;
+  public Integer getServingSize() {
+      return servingSize;
   }
   
-  private ScanResult(String id, String name, String format, String description, S3Object photo) {
+  public Integer getServingPerPacket() {
+      return servingPerPacket;
+  }
+  
+  public Nutrition getNutritionInfo() {
+      return nutritionInfo;
+  }
+  
+  private Product(String id, String name, String description, Integer servingSize, Integer servingPerPacket, Nutrition nutritionInfo) {
     this.id = id;
     this.name = name;
-    this.format = format;
     this.description = description;
-    this.photo = photo;
+    this.servingSize = servingSize;
+    this.servingPerPacket = servingPerPacket;
+    this.nutritionInfo = nutritionInfo;
   }
   
   @Override
@@ -64,12 +71,13 @@ public final class ScanResult implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      ScanResult scanResult = (ScanResult) obj;
-      return ObjectsCompat.equals(getId(), scanResult.getId()) &&
-              ObjectsCompat.equals(getName(), scanResult.getName()) &&
-              ObjectsCompat.equals(getFormat(), scanResult.getFormat()) &&
-              ObjectsCompat.equals(getDescription(), scanResult.getDescription()) &&
-              ObjectsCompat.equals(getPhoto(), scanResult.getPhoto());
+      Product product = (Product) obj;
+      return ObjectsCompat.equals(getId(), product.getId()) &&
+              ObjectsCompat.equals(getName(), product.getName()) &&
+              ObjectsCompat.equals(getDescription(), product.getDescription()) &&
+              ObjectsCompat.equals(getServingSize(), product.getServingSize()) &&
+              ObjectsCompat.equals(getServingPerPacket(), product.getServingPerPacket()) &&
+              ObjectsCompat.equals(getNutritionInfo(), product.getNutritionInfo());
       }
   }
   
@@ -78,9 +86,10 @@ public final class ScanResult implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getName())
-      .append(getFormat())
       .append(getDescription())
-      .append(getPhoto())
+      .append(getServingSize())
+      .append(getServingPerPacket())
+      .append(getNutritionInfo())
       .toString()
       .hashCode();
   }
@@ -88,12 +97,13 @@ public final class ScanResult implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("ScanResult {")
+      .append("Product {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
-      .append("format=" + String.valueOf(getFormat()) + ", ")
       .append("description=" + String.valueOf(getDescription()) + ", ")
-      .append("photo=" + String.valueOf(getPhoto()))
+      .append("servingSize=" + String.valueOf(getServingSize()) + ", ")
+      .append("servingPerPacket=" + String.valueOf(getServingPerPacket()) + ", ")
+      .append("nutritionInfo=" + String.valueOf(getNutritionInfo()))
       .append("}")
       .toString();
   }
@@ -111,7 +121,7 @@ public final class ScanResult implements Model {
    * @return an instance of this model with only ID populated
    * @throws IllegalArgumentException Checks that ID is in the proper format
    */
-  public static ScanResult justId(String id) {
+  public static Product justId(String id) {
     try {
       UUID.fromString(id); // Check that ID is in the UUID format - if not an exception is thrown
     } catch (Exception exception) {
@@ -121,8 +131,9 @@ public final class ScanResult implements Model {
               "creating a new object, use the standard builder method and leave the ID field blank."
       );
     }
-    return new ScanResult(
+    return new Product(
       id,
+      null,
       null,
       null,
       null,
@@ -133,9 +144,10 @@ public final class ScanResult implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       name,
-      format,
       description,
-      photo);
+      servingSize,
+      servingPerPacket,
+      nutritionInfo);
   }
   public interface NameStep {
     BuildStep name(String name);
@@ -143,30 +155,33 @@ public final class ScanResult implements Model {
   
 
   public interface BuildStep {
-    ScanResult build();
+    Product build();
     BuildStep id(String id) throws IllegalArgumentException;
-    BuildStep format(String format);
     BuildStep description(String description);
-    BuildStep photo(S3Object photo);
+    BuildStep servingSize(Integer servingSize);
+    BuildStep servingPerPacket(Integer servingPerPacket);
+    BuildStep nutritionInfo(Nutrition nutritionInfo);
   }
   
 
   public static class Builder implements NameStep, BuildStep {
     private String id;
     private String name;
-    private String format;
     private String description;
-    private S3Object photo;
+    private Integer servingSize;
+    private Integer servingPerPacket;
+    private Nutrition nutritionInfo;
     @Override
-     public ScanResult build() {
+     public Product build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new ScanResult(
+        return new Product(
           id,
           name,
-          format,
           description,
-          photo);
+          servingSize,
+          servingPerPacket,
+          nutritionInfo);
     }
     
     @Override
@@ -177,20 +192,26 @@ public final class ScanResult implements Model {
     }
     
     @Override
-     public BuildStep format(String format) {
-        this.format = format;
-        return this;
-    }
-    
-    @Override
      public BuildStep description(String description) {
         this.description = description;
         return this;
     }
     
     @Override
-     public BuildStep photo(S3Object photo) {
-        this.photo = photo;
+     public BuildStep servingSize(Integer servingSize) {
+        this.servingSize = servingSize;
+        return this;
+    }
+    
+    @Override
+     public BuildStep servingPerPacket(Integer servingPerPacket) {
+        this.servingPerPacket = servingPerPacket;
+        return this;
+    }
+    
+    @Override
+     public BuildStep nutritionInfo(Nutrition nutritionInfo) {
+        this.nutritionInfo = nutritionInfo;
         return this;
     }
     
@@ -217,12 +238,13 @@ public final class ScanResult implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name, String format, String description, S3Object photo) {
+    private CopyOfBuilder(String id, String name, String description, Integer servingSize, Integer servingPerPacket, Nutrition nutritionInfo) {
       super.id(id);
       super.name(name)
-        .format(format)
         .description(description)
-        .photo(photo);
+        .servingSize(servingSize)
+        .servingPerPacket(servingPerPacket)
+        .nutritionInfo(nutritionInfo);
     }
     
     @Override
@@ -231,18 +253,23 @@ public final class ScanResult implements Model {
     }
     
     @Override
-     public CopyOfBuilder format(String format) {
-      return (CopyOfBuilder) super.format(format);
-    }
-    
-    @Override
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
     }
     
     @Override
-     public CopyOfBuilder photo(S3Object photo) {
-      return (CopyOfBuilder) super.photo(photo);
+     public CopyOfBuilder servingSize(Integer servingSize) {
+      return (CopyOfBuilder) super.servingSize(servingSize);
+    }
+    
+    @Override
+     public CopyOfBuilder servingPerPacket(Integer servingPerPacket) {
+      return (CopyOfBuilder) super.servingPerPacket(servingPerPacket);
+    }
+    
+    @Override
+     public CopyOfBuilder nutritionInfo(Nutrition nutritionInfo) {
+      return (CopyOfBuilder) super.nutritionInfo(nutritionInfo);
     }
   }
   

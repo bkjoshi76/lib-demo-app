@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "swadhishtaapp",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authswadhishtaapp39346ac1",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

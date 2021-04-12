@@ -1,0 +1,60 @@
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+}
+
+type Todo @model {
+  id: ID!
+  name: String!
+  priority: Priority
+  description: String
+  photo: S3Object
+}
+
+type ScanResult @model {
+  id: ID!
+  name: String!
+  format: String   
+  description: String
+  photo: S3Object
+}
+
+type S3Object {
+  bucket: String!
+  key: String!
+  region: String!
+  localUri: String
+  mimeType: String
+}
+
+type Post @model {
+  id: ID!
+  title: String!
+  status: PostStatus!
+  rating: Int
+  content: String
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+type Product @model {
+  id: ID!
+  name: String!
+  description: String
+  servingSize: Int
+  servingPerPacket: Int
+  nutritionInfo : Nutrition
+}
+
+type Nutrition {
+  energy: Int
+  protein: Int
+  fatTotal : Int
+  saturated : Int
+  carbohydrate : Int
+  sugar : Int
+  sodium : Int
+}

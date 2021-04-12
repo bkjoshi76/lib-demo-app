@@ -1,6 +1,6 @@
 {
   "auth": {
-    "swadhistha0184590a": {
+    "swadhishtaapp39346ac1": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,7 +8,7 @@
     }
   },
   "api": {
-    "swadhistha": {
+    "swadhishtaapp": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,36 +16,12 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authswadhistha0184590a"
+              "userPoolId": "authswadhishtaapp39346ac1"
             }
           },
           "additionalAuthenticationProviders": []
         }
       }
-    }
-  },
-  "function": {
-    "S3Triggercf11c62a": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
-  "storage": {
-    "myhealthresourceimage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Triggercf11c62a",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
     }
   }
 }
